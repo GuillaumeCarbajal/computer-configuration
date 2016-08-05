@@ -8,7 +8,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 syntax on
 "solarized options 
 let g:solarized_termcolors=256
-colorscheme solarized 
+colorscheme gruvbox 
 set background=dark
 "VIM Configuration File
 "" Description: Optimized for C/C++ development, but useful also for other
@@ -124,6 +124,9 @@ Plugin 'rking/ag.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'altercation/solarized'
 Plugin 'desert.vim'
+Plugin 'morhetz/gruvbox'
+Plugin 'dracula/vim'
+Plugin 'justinmk/vim-syntax-extra'
 
 "Plugin DoxygenToolkit
 Plugin 'DoxygenToolkit.vim'
