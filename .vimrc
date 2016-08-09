@@ -1,7 +1,7 @@
 set backspace=2
 set number
 set nocompatible              " be iMproved, required
-filetype off                  " required
+filetype on
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -53,6 +53,9 @@ set tags+=~/.vim/tags/gl
 set tags+=~/.vim/tags/sdl
 set tags+=~/.vim/tags/qt4
 
+" build tags of your own project with Ctrl-F12
+map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+
 " OmniCppComplete
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
@@ -81,8 +84,6 @@ nmap <F2> :w<CR>
 imap <F2> <ESC>:w<CR>i
 " switch between header/source with F4
 map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
-" recreate tags file with F5
-map <F5> :!ctags -R –c++-kinds=+p –fields=+iaS –extra=+q .<CR>
 " create doxygen comment
 map <F6> :Dox<CR>
 " build using makeprg with <F7>
@@ -113,19 +114,22 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'ggreer/the_silver_searcher'
-Plugin 'rking/ag.vim'
+"Plugin 'ggreer/the_silver_searcher'
+"Plugin 'rking/ag.vim'
 
 " Plugin ack
 "Plugin 'mileszs/ack.vim'
 
+"Plugin OmniComplete
+Plugin 'OmniCppComplete'
+
 
 "Plugin color
-Plugin 'flazz/vim-colorschemes'
-Plugin 'altercation/solarized'
-Plugin 'desert.vim'
+"Plugin 'flazz/vim-colorschemes'
+"Plugin 'altercation/solarized'
+"Plugin 'desert.vim'
 Plugin 'morhetz/gruvbox'
-Plugin 'dracula/vim'
+"Plugin 'dracula/vim'
 Plugin 'justinmk/vim-syntax-extra'
 
 "Plugin DoxygenToolkit
