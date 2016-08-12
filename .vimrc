@@ -116,7 +116,7 @@ Plugin 'VundleVim/Vundle.vim'
 "Plugin 'rking/ag.vim'
 
 " Plugin ack
-"Plugin 'mileszs/ack.vim'
+Plugin 'mileszs/ack.vim'
 
 "Plugin OmniComplete
 Plugin 'OmniCppComplete'
@@ -133,6 +133,8 @@ Plugin 'justinmk/vim-syntax-extra'
 "Plugin DoxygenToolkit
 Plugin 'DoxygenToolkit.vim'
 
+"Plugin Automatic Pairs (e.g. brackets)
+Plugin 'jiangmiao/auto-pairs'
 
 "All of your Plugins must be added before the following line
 call vundle#end()            " required
