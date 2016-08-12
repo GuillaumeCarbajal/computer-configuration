@@ -7,7 +7,6 @@ filetype on
 set rtp+=~/.vim/bundle/Vundle.vim
 syntax on
 "solarized options 
-let g:solarized_termcolors=256
 colorscheme gruvbox 
 set background=dark
 "VIM Configuration File
@@ -28,12 +27,11 @@ set smartindent
 set tabstop=4        " tab width is 4 spaces
 set shiftwidth=4     " indent also with 4 spaces
 set expandtab        " expand tabs to spaces
+set cino+=(0         " indent all function variables (for C++)
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
 set textwidth=120
 " turn syntax highlighting on
 set t_Co=256
-syntax on
-" colorscheme wombat256
 " turn line numbers on
 set number
 " highlight matching braces
