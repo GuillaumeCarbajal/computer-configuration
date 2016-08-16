@@ -25,7 +25,7 @@ set autoindent
 set smartindent
 " configure tabwidth and insert spaces instead of tabs
 set tabstop=4        " tab width is 4 spaces
-set shiftwidth=4     " indent also with 4 spaces
+set shiftwidth=2     " indent also with 2  spaces
 set expandtab        " expand tabs to spaces
 set cino+=(0         " indent all function variables (for C++)
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
@@ -107,6 +107,8 @@ else
     map <M-Up> [s
 endif
 
+
+"Package installation
 call vundle#begin()
 
 
@@ -121,6 +123,27 @@ Plugin 'mileszs/ack.vim'
 "Plugin OmniComplete
 Plugin 'OmniCppComplete'
 
+"""""""Syntax
+"Plugin Automatic Pairs (e.g. brackets)
+Plugin 'jiangmiao/auto-pairs'
+
+"Plugin AutoAlign
+Plugin 'AutoAlign'
+
+"Plugin Syntastic
+"Plugin 'scrooloose/syntastic'
+
+"Plugin snipMate
+Plugin 'snipMate'
+"""""""
+
+""""""Debugging 
+"Plugin Clewn
+Plugin 'lekv/vim-clewn'
+
+"Plugin vimgdb
+Plugin 'vimgdb'
+""""""
 
 "Plugin color
 "Plugin 'flazz/vim-colorschemes'
@@ -133,8 +156,6 @@ Plugin 'justinmk/vim-syntax-extra'
 "Plugin DoxygenToolkit
 Plugin 'DoxygenToolkit.vim'
 
-"Plugin Automatic Pairs (e.g. brackets)
-Plugin 'jiangmiao/auto-pairs'
 
 "All of your Plugins must be added before the following line
 call vundle#end()            " required
