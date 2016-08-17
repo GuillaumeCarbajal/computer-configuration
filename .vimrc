@@ -135,6 +135,10 @@ Plugin 'AutoAlign'
 
 "Plugin snipMate
 Plugin 'snipMate'
+
+"Plugin taglist
+Plugin 'taglist.vim'
+
 """""""
 
 """"""Debugging 
