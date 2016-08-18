@@ -80,6 +80,10 @@ highlight Pmenu ctermbg=238 gui=bold
 "let g:SuperTabDefaultCompletionType = "context"
 "let g:SuperTabCompletionContexts(default value: ['s:ContextText'])
 
+"Plugin AutoPairs
+let g:AutoPairsFlyMode = 0 "Activate fly mode
+
+
 " Install DoxygenToolkit from
 "http://www.vim.org/scripts/script.php?script_id=987
 let g:DoxygenToolkit_authorName="John Doe <john@doe.com>"
