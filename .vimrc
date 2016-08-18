@@ -43,6 +43,7 @@ set comments=sl:/*,mb:\ *,elx:\ */
 "http://vim.wikia.com/wiki/C++_code_completion
 set nocp
 filetype plugin on
+"set omnifunc=syntaxcomplete#Complete
 
 " This offers intelligent C++ completion when typing ‘.’ ‘->’ or <C-o>
 " Load standard tag files
@@ -65,10 +66,19 @@ let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " " automatically open and close the popup menu / preview window
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+"" Pop up menu completion
 set completeopt=menuone,menu,longest,preview
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
-
-
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+""" highlight popup menu completion
+highlight Pmenu ctermbg=238 gui=bold
+""" SuperTab: press Tab to complete
+"let g:SuperTabDefaultCompletionType = "context"
+"let g:SuperTabCompletionContexts(default value: ['s:ContextText'])
 
 " Install DoxygenToolkit from
 "http://www.vim.org/scripts/script.php?script_id=987
@@ -133,11 +143,17 @@ Plugin 'AutoAlign'
 "Plugin Syntastic
 "Plugin 'scrooloose/syntastic'
 
-"Plugin snipMate
-Plugin 'snipMate'
+"Plugin snipMate  --> complete for loop
+"Plugin 'snipMate'
 
 "Plugin taglist
 Plugin 'taglist.vim'
+
+"Plugin SuperTab
+"Plugin 'SuperTab'
+
+"Plugin AutoCompIPop
+Plugin 'AutoComplPop'
 
 """""""
 
