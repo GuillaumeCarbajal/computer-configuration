@@ -163,10 +163,13 @@ Plugin 'AutoComplPop'
 
 """"""Debugging 
 "Plugin Clewn
-Plugin 'lekv/vim-clewn'
+"Plugin 'lekv/vim-clewn'
 
 "Plugin vimgdb
-Plugin 'vimgdb'
+"Plugin 'vimgdb'
+
+"Plugin Conque gdb
+Plugin 'Conque-GDB'
 """"""
 
 "Plugin color
