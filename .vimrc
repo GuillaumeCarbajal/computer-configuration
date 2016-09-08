@@ -1,5 +1,6 @@
 set backspace=2
-set number
+" turn line numbers on
+"set number
 set nocompatible              " be iMproved, required
 filetype on
 
@@ -32,8 +33,6 @@ set cino+=(0         " indent all function variables (for C++)
 set textwidth=120
 " turn syntax highlighting on
 set t_Co=256
-" turn line numbers on
-set number
 " highlight matching braces
 set showmatch
 " intelligent comments
