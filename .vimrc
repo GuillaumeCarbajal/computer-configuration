@@ -1,6 +1,6 @@
 set backspace=2
 " turn line numbers on
-"set number
+set number
 set nocompatible              " be iMproved, required
 filetype on
 
@@ -69,10 +69,10 @@ au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+      \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+      \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 """ highlight popup menu completion
 highlight Pmenu ctermbg=238 gui=bold
 """ SuperTab: press Tab to complete
@@ -106,19 +106,37 @@ map <F12> <C-]>
 " in diff mode we use the spell check keys for merging
 if &diff
   " diff settings
-    map <M-Down> ]c
-    map <M-Up> [c
-    map <M-Left> do
-    map <M-Right> dp
-    map <F9> :new<CR>:read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
+  map <M-Down> ]c
+  map <M-Up> [c
+  map <M-Left> do
+  map <M-Right> dp
+  map <F9> :new<CR>:read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
 else
-   " spell settings
-    :setlocal spell spelllang=en
-   " set the spellfile - folders must exist
-    set spellfile=~/.vim/spellfile.add
-    map <M-Down> ]s
-    map <M-Up> [s
+  " spell settings
+  :setlocal spell spelllang=en
+  " set the spellfile - folders must exist
+  set spellfile=~/.vim/spellfile.add
+  map <M-Down> ]s
+  map <M-Up> [s
 endif
+
+" Cscope (function matching)
+"if has('cscope')
+"  set cscopetag cscopeverbose
+"
+"  if has('quickfix')
+"    set cscopequickfix=s-,c-,d-,i-,t-,e-
+"  endif
+"
+"  cnoreabbrev csa cs add
+"  cnoreabbrev csf cs find
+"  cnoreabbrev csk cs kill
+"  cnoreabbrev csr cs reset
+"  cnoreabbrev css cs show
+"  cnoreabbrev csh cs help
+"
+"  command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
+"endif
 
 
 "Package installation
@@ -133,8 +151,18 @@ Plugin 'VundleVim/Vundle.vim'
 " Plugin ack
 Plugin 'mileszs/ack.vim'
 
+"=============================
+"Plugin navigation
+"=============================
+Plugin 'FuzzyFinder'
+Plugin 'L9' "Required for FuzzyFinder
+Plugin 'scrooloose/nerdtree'
+
 "Plugin OmniComplete
 Plugin 'OmniCppComplete'
+
+"Plugin reference, function, variable defintions
+Plugin 'SrcExpl'
 
 """""""Syntax
 "Plugin Automatic Pairs (e.g. brackets)
