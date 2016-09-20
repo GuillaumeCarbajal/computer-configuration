@@ -54,30 +54,31 @@ set tags+=~/.vim/tags/qt4
 " build tags of your own project with Ctrl-F12
 map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
-" OmniCppComplete
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-" " automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-"" Pop up menu completion
-set completeopt=menuone,menu,longest,preview
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-      \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-      \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-""" highlight popup menu completion
-highlight Pmenu ctermbg=238 gui=bold
-""" SuperTab: press Tab to complete
-"let g:SuperTabDefaultCompletionType = "context"
-"let g:SuperTabCompletionContexts(default value: ['s:ContextText'])
+""" OmniCppComplete
+""let OmniCpp_NamespaceSearch = 1
+""let OmniCpp_GlobalScopeSearch = 1
+""let OmniCpp_ShowAccess = 1
+""let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+""let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+""let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+""let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+""let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+""" " automatically open and close the popup menu / preview window
+""au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+""
+"""" Pop up menu completion
+""set completeopt=menuone,menu,longest,preview
+""inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+""inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+""      \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+""
+""inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+""      \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+""""" highlight popup menu completion
+""highlight Pmenu ctermbg=238 gui=bold
+""""" SuperTab: press Tab to complete
+"""let g:SuperTabDefaultCompletionType = "context"
+"""let g:SuperTabCompletionContexts(default value: ['s:ContextText'])
 
 "Plugin AutoPairs
 let g:AutoPairsFlyMode = 0 "Activate fly mode
@@ -138,7 +139,17 @@ endif
 "  command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
 "endif
 
-
+"""autocomplete with tab
+""function! Tab_Or_Complete()
+""  if col('.')>1 && strpart( getline('.'), col('.')-2, 3  ) =~ '^\w'
+""    return "\<C-N>"
+""  else
+""    return "\<Tab>"
+""  endif
+""endfunction
+"":inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
+"":set dictionary="/usr/dict/words"
+                  
 "Package installation
 call vundle#begin()
 
@@ -156,15 +167,18 @@ Plugin 'mileszs/ack.vim'
 "=============================
 Plugin 'FuzzyFinder'
 Plugin 'L9' "Required for FuzzyFinder
-Plugin 'scrooloose/nerdtree'
-
-"Plugin OmniComplete
-Plugin 'OmniCppComplete'
-
 "Plugin reference, function, variable defintions
 Plugin 'SrcExpl'
 
-"""""""Syntax
+Plugin 'scrooloose/nerdtree'
+
+"================================
+"Syntax
+"===============================
+"Completion
+"Plugin 'OmniCppComplete'
+Plugin 'Valloric/YouCompleteMe'
+
 "Plugin Automatic Pairs (e.g. brackets)
 Plugin 'jiangmiao/auto-pairs'
 
@@ -184,7 +198,7 @@ Plugin 'taglist.vim'
 "Plugin 'SuperTab'
 
 "Plugin AutoCompIPop
-Plugin 'AutoComplPop'
+"Plugin 'AutoComplPop'
 
 """""""
 
