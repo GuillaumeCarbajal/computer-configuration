@@ -150,8 +150,9 @@ endif
 "":inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 "":set dictionary="/usr/dict/words"
 
-"=================
+"=========================
 "NERD tree Configuration
+"=========================
 set modifiable
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif "Open NERDTree automatically"
@@ -176,8 +177,20 @@ call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
 call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 "=====================
-                  
+
+"==========================
+"Vim.fugitive Configuration
+"==========================
+set diffopt+=vertical
+"===========================
+
+
+
+
+
+"=========================
 "Package installation
+"========================
 call vundle#begin()
 
 
@@ -228,6 +241,9 @@ Plugin 'AutoComplPop'
 
 """""""
 
+"=======================
+"Programming specifics
+"======================
 """"""Debugging 
 "Plugin Clewn
 "Plugin 'lekv/vim-clewn'
@@ -238,6 +254,11 @@ Plugin 'AutoComplPop'
 "Plugin Conque gdb
 Plugin 'Conque-GDB'
 """"""
+
+"""""""Git
+"Plugin vim.fugitive
+Plugin 'tpope/vim-fugitive'
+
 
 "Plugin color
 "Plugin 'flazz/vim-colorschemes'
