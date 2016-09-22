@@ -176,6 +176,8 @@ call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
 call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
 call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+
+"Start NERDTree
 "=====================
 
 "==========================
@@ -210,11 +212,21 @@ Plugin 'L9' "Required for FuzzyFinder
 Plugin 'SrcExpl' "Plugin reference, function, variable defintions
 
 Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
 
 "================================
 "Syntax
 "===============================
-"Completion
+"""""""""""Colors
+"Plugin 'flazz/vim-colorschemes'
+"Plugin 'altercation/solarized'
+"Plugin 'desert.vim'
+Plugin 'morhetz/gruvbox'
+"Plugin 'dracula/vim'
+Plugin 'justinmk/vim-syntax-extra'
+
+
+"""""""""""Completion
 Plugin 'OmniCppComplete'
 "Plugin 'Valloric/YouCompleteMe'
 
@@ -238,8 +250,7 @@ Plugin 'taglist.vim'
 
 "Plugin AutoCompIPop
 Plugin 'AutoComplPop'
-
-"""""""
+"===================================
 
 "=======================
 "Programming specifics
@@ -258,15 +269,9 @@ Plugin 'Conque-GDB'
 """""""Git
 "Plugin vim.fugitive
 Plugin 'tpope/vim-fugitive'
+"========================
 
 
-"Plugin color
-"Plugin 'flazz/vim-colorschemes'
-"Plugin 'altercation/solarized'
-"Plugin 'desert.vim'
-Plugin 'morhetz/gruvbox'
-"Plugin 'dracula/vim'
-Plugin 'justinmk/vim-syntax-extra'
 
 "Plugin DoxygenToolkit
 Plugin 'DoxygenToolkit.vim'
