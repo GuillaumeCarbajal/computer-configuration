@@ -55,30 +55,30 @@ set tags+=~/.vim/tags/qt4
 map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 """ OmniCppComplete
-""let OmniCpp_NamespaceSearch = 1
-""let OmniCpp_GlobalScopeSearch = 1
-""let OmniCpp_ShowAccess = 1
-""let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-""let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-""let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-""let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-""let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-""" " automatically open and close the popup menu / preview window
-""au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-""
-"""" Pop up menu completion
-""set completeopt=menuone,menu,longest,preview
-""inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-""inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-""      \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-""
-""inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-""      \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-""""" highlight popup menu completion
-""highlight Pmenu ctermbg=238 gui=bold
-""""" SuperTab: press Tab to complete
-"""let g:SuperTabDefaultCompletionType = "context"
-"""let g:SuperTabCompletionContexts(default value: ['s:ContextText'])
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+" " automatically open and close the popup menu / preview window
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+
+"" Pop up menu completion
+set completeopt=menuone,menu,longest,preview
+inoremap <expr> <Tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<Tab>"
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+      \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+      \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+""" highlight popup menu completion
+highlight Pmenu ctermbg=238 gui=bold
+""" SuperTab: press Tab to complete
+"let g:SuperTabDefaultCompletionType = "context"
+"let g:SuperTabCompletionContexts(default value: ['s:ContextText'])
 
 "Plugin AutoPairs
 let g:AutoPairsFlyMode = 0 "Activate fly mode
@@ -149,6 +149,33 @@ endif
 ""endfunction
 "":inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 "":set dictionary="/usr/dict/words"
+
+"=================
+"NERD tree Configuration
+set modifiable
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif "Open NERDTree automatically"
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif "close Vim when only window left is NERDTree"
+"NERDTress File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg.' guifg='. a:guifg
+exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('cc', 'green', 'none', 'green', '#151515')
+call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('h', 'blue', 'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+"=====================
                   
 "Package installation
 call vundle#begin()
@@ -167,8 +194,7 @@ Plugin 'mileszs/ack.vim'
 "=============================
 Plugin 'FuzzyFinder'
 Plugin 'L9' "Required for FuzzyFinder
-"Plugin reference, function, variable defintions
-Plugin 'SrcExpl'
+Plugin 'SrcExpl' "Plugin reference, function, variable defintions
 
 Plugin 'scrooloose/nerdtree'
 
@@ -176,8 +202,8 @@ Plugin 'scrooloose/nerdtree'
 "Syntax
 "===============================
 "Completion
-"Plugin 'OmniCppComplete'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'OmniCppComplete'
+"Plugin 'Valloric/YouCompleteMe'
 
 "Plugin Automatic Pairs (e.g. brackets)
 Plugin 'jiangmiao/auto-pairs'
@@ -198,7 +224,7 @@ Plugin 'taglist.vim'
 "Plugin 'SuperTab'
 
 "Plugin AutoCompIPop
-"Plugin 'AutoComplPop'
+Plugin 'AutoComplPop'
 
 """""""
 
