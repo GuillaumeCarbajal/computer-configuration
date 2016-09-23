@@ -124,7 +124,12 @@ endif
 "Source Explorer Configuration
 "========================
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | SrcExpl | endif "Open Source Explorer automatically"
-let g:SrcExpl_winHeight = 12
+let g:SrcExpl_winHeight = 10
+
+" // Set "Enter" key to jump into the exact definition context 
+"let g:SrcExpl_jumpKey = "<ENTER>" 
+
+
 nmap <C-H> <C-W>h 
 nmap <C-J> <C-W>j 
 nmap <C-K> <C-W>k 
@@ -134,21 +139,12 @@ nmap <C-I> <C-W>j:call g:SrcExpl_Jump()<CR>
 nmap <C-O> :call g:SrcExpl_GoBack()<CR> 
 "========================
 
-"""autocomplete with tab
-""function! Tab_Or_Complete()
-""  if col('.')>1 && strpart( getline('.'), col('.')-2, 3  ) =~ '^\w'
-""    return "\<C-N>"
-""  else
-""    return "\<Tab>"
-""  endif
-""endfunction
-"":inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
-"":set dictionary="/usr/dict/words"
 
 "=========================
 "NERD tree Configuration
 "=========================
 set modifiable
+let g:NERDTreeWinSize=22 "Change size of window
 let g:NERDTreeWinPos = "left" "Open NERDTree on left
 let g:nerdtree_tabs_open_on_console_startup=1
 autocmd StdinReadPre * let s:std_in=1
@@ -180,6 +176,7 @@ call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 "taglist Configuration
 "=======================
 let Tlist_Use_Right_Window   = 1
+let Tlist_WinWidth = 22 "Change size of window
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Tlist | endif "Open Source Explorer automatically"
 "=======================
 
