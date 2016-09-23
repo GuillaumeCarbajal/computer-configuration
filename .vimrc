@@ -120,24 +120,19 @@ else
   map <M-Down> ]s
   map <M-Up> [s
 endif
+"========================
+"Source Explorer Configuration
+"========================
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | SrcExpl | endif "Open Source Explorer automatically"
+let g:SrcExpl_winHeight = 12
+nmap <C-H> <C-W>h 
+nmap <C-J> <C-W>j 
+nmap <C-K> <C-W>k 
+nmap <C-L> <C-W>l 
 
-" Cscope (function matching)
-"if has('cscope')
-"  set cscopetag cscopeverbose
-"
-"  if has('quickfix')
-"    set cscopequickfix=s-,c-,d-,i-,t-,e-
-"  endif
-"
-"  cnoreabbrev csa cs add
-"  cnoreabbrev csf cs find
-"  cnoreabbrev csk cs kill
-"  cnoreabbrev csr cs reset
-"  cnoreabbrev css cs show
-"  cnoreabbrev csh cs help
-"
-"  command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
-"endif
+nmap <C-I> <C-W>j:call g:SrcExpl_Jump()<CR> 
+nmap <C-O> :call g:SrcExpl_GoBack()<CR> 
+"========================
 
 """autocomplete with tab
 ""function! Tab_Or_Complete()
@@ -154,10 +149,13 @@ endif
 "NERD tree Configuration
 "=========================
 set modifiable
+let g:NERDTreeWinPos = "left" "Open NERDTree on left
+let g:nerdtree_tabs_open_on_console_startup=1
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif "Open NERDTree automatically"
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif "close Vim when only window left is NERDTree"
-"NERDTress File highlighting
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif "Open NERDTree automatically"
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif "close Vim when only window left is NERDTree"
+
+"NERDTrees File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
 exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg.' guifg='. a:guifg
 exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
@@ -176,9 +174,20 @@ call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
 call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
 call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-
-"Start NERDTree
 "=====================
+
+"=======================
+"taglist Configuration
+"=======================
+let Tlist_Use_Right_Window   = 1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Tlist | endif "Open Source Explorer automatically"
+"=======================
+
+
+"==========================
+"Trinity Configuration
+"==========================
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | TrinityToggleAll | endif "Open Trinity automatically"
 
 "==========================
 "Vim.fugitive Configuration
@@ -213,6 +222,8 @@ Plugin 'SrcExpl' "Plugin reference, function, variable defintions
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
+
+"Plugin 'wesleyche/Trinity' "manages NERDTree, Source Explorer and Ctags
 
 "================================
 "Syntax
