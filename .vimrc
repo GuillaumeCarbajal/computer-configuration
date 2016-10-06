@@ -54,18 +54,6 @@ set tags+=~/.vim/tags/qt4
 " build tags of your own project with Ctrl-F12
 map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
-""" OmniCppComplete
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-" " automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-
 "" Pop up menu completion
 set completeopt=menuone,menu,longest,preview
 inoremap <expr> <Tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<Tab>"
@@ -137,7 +125,20 @@ vnoremap <leader>p "_dP"
 "=======================
 let g:AutoComplPop_Behavior = {'c': [ {'command' : "\<C-x>\<C-o>", 'pattern' : ".",'repeat' : 0}]}
 let g:AutoComplPop_CompleteoptPreview = 1 "pop up menu with parameters
-
+set conceallevel=2
+set concealcursor=vin
+let g:clang_snippets=1
+let g:clang_conceal_snippets=1
+" The single one that works with clang_complete
+let g:clang_snippets_engine='clang_complete'
+"
+" " Complete options (disable preview scratch window, longest removed to aways
+" " show menu)
+set completeopt=menu,menuone
+"
+"" Limit popup menu height
+set pumheight=20"
+" "
 
 "========================
 "Source Explorer Configuration
@@ -255,7 +256,8 @@ Plugin 'justinmk/vim-syntax-extra'
 
 
 """""""""""Completion
-Plugin 'OmniCppComplete'
+Plugin 'justmao945/vim-clang'
+"Plugin 'OmniCppComplete'
 "Plugin 'Valloric/YouCompleteMe'
 
 "Plugin Automatic Pairs (e.g. brackets)
