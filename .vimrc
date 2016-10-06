@@ -88,8 +88,11 @@ let g:AutoPairsFlyMode = 0 "Activate fly mode
 "http://www.vim.org/scripts/script.php?script_id=987
 let g:DoxygenToolkit_authorName="John Doe <john@doe.com>"
 
+"=====================================
 " Enhanced keyboard mappings
-"
+"=====================================
+
+
 " in normal mode F2 will save the file
 nmap <F2> :w<CR>
 " in insert mode F2 will exit insert, save, enters insert again
@@ -120,24 +123,40 @@ else
   map <M-Down> ]s
   map <M-Up> [s
 endif
+
+"Keep paste in memory
+vnoremap <leader>p "_dP"
+
+
+
+"=================================================
+"
+"
+"========================
+"AutoComplPop Configuration
+"=======================
+let g:AutoComplPop_Behavior = {'c': [ {'command' : "\<C-x>\<C-o>", 'pattern' : ".",'repeat' : 0}]}
+let g:AutoComplPop_CompleteoptPreview = 1 "pop up menu with parameters
+
+
 "========================
 "Source Explorer Configuration
 "========================
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | SrcExpl | endif "Open Source Explorer automatically"
 let g:SrcExpl_winHeight = 10
 
-" // Set "Enter" key to jump into the exact definition context 
-"let g:SrcExpl_jumpKey = "<ENTER>" 
 
+"set "Enter" key to jump into the exact definition context 
+let g:SrcExpl_jumpKey = "<ENTER>" 
 
-nmap <C-H> <C-W>h 
-nmap <C-J> <C-W>j 
-nmap <C-K> <C-W>k 
-nmap <C-L> <C-W>l 
+" // Set "Space" key for back from the definition context 
+let g:SrcExpl_gobackKey = "<SPACE>" 
+"
+" // Enable/Disable the local definition searching, and note that this is not 
+" " // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
+" " // It only searches for a match with the keyword according to command 'gd' 
+let g:SrcExpl_searchLocalDef = 1
 
-nmap <C-I> <C-W>j:call g:SrcExpl_Jump()<CR> 
-nmap <C-O> :call g:SrcExpl_GoBack()<CR> 
-"========================
 
 
 "=========================
@@ -221,6 +240,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 
 "Plugin 'wesleyche/Trinity' "manages NERDTree, Source Explorer and Ctags
+Plugin 'ctrlpvim/ctrlp.vim'
 
 "================================
 "Syntax
