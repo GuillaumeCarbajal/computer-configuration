@@ -64,9 +64,6 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
       \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 """ highlight popup menu completion
 highlight Pmenu ctermbg=238 gui=bold
-""" SuperTab: press Tab to complete
-"let g:SuperTabDefaultCompletionType = "context"
-"let g:SuperTabCompletionContexts(default value: ['s:ContextText'])
 
 "Plugin AutoPairs
 let g:AutoPairsFlyMode = 0 "Activate fly mode
@@ -111,9 +108,6 @@ else
   map <M-Down> ]s
   map <M-Up> [s
 endif
-
-"Keep paste in memory
-vnoremap <leader>p "_dP"
 
 
 
@@ -243,6 +237,8 @@ Plugin 'jistr/vim-nerdtree-tabs'
 "Plugin 'wesleyche/Trinity' "manages NERDTree, Source Explorer and Ctags
 Plugin 'ctrlpvim/ctrlp.vim'
 
+Plugin 'kshenoy/vim-signature' "highlight marks
+
 "================================
 "Syntax
 "===============================
@@ -257,53 +253,47 @@ Plugin 'justinmk/vim-syntax-extra'
 
 """""""""""Completion
 Plugin 'justmao945/vim-clang'
+Plugin 'AutoComplPop'
 "Plugin 'OmniCppComplete'
 "Plugin 'Valloric/YouCompleteMe'
 
-"Plugin Automatic Pairs (e.g. brackets)
-Plugin 'jiangmiao/auto-pairs'
+Plugin 'jiangmiao/auto-pairs' "Plugin Automatic Pairs (e.g. brackets)
 
-"Plugin AutoAlign
 Plugin 'AutoAlign'
 
-"Plugin Syntastic
-"Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic' "Plugin Syntastic
 
-"Plugin snipMate  --> complete for loop
-"Plugin 'snipMate'
+Plugin 'snipMate' "complete for loop (for example)
 
-"Plugin taglist
 Plugin 'taglist.vim'
 
-"Plugin SuperTab
 "Plugin 'SuperTab'
 
-"Plugin AutoCompIPop
-Plugin 'AutoComplPop'
+
+"""""""""""Yank issues
+Plugin 'maxbrunsfeld/vim-yankstack' "keep previous yank in memory
+
+"""""""""""Sublime's multiple selection
+Plugin 'terryma/vim-multiple-cursors'
+
 "===================================
 
 "=======================
 "Programming specifics
 "======================
 """"""Debugging 
-"Plugin Clewn
 "Plugin 'lekv/vim-clewn'
-
-"Plugin vimgdb
 "Plugin 'vimgdb'
 
-"Plugin Conque gdb
 Plugin 'Conque-GDB'
 """"""
 
 """""""Git
-"Plugin vim.fugitive
 Plugin 'tpope/vim-fugitive'
 "========================
 
 
-
-"Plugin DoxygenToolkit
+"Don't remember what that does
 Plugin 'DoxygenToolkit.vim'
 
 
