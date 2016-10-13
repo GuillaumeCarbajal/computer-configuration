@@ -1,7 +1,8 @@
 set backspace=2
-" turn line numbers on
-set number
+set hidden " allow buffers to be open in background
+set number " turn line numbers on
 set nocompatible              " be iMproved, required
+let mapleader=","  "leader key is now ',' instead of '\' 
 filetype on
 
 " set the runtime path to include Vundle and initialize
@@ -137,7 +138,7 @@ set pumheight=20"
 "========================
 "Source Explorer Configuration
 "========================
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | SrcExpl | endif "Open Source Explorer automatically"
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | SrcExpl | endif "Open Source Explorer automatically"
 let g:SrcExpl_winHeight = 10
 
 
@@ -184,6 +185,8 @@ call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
 call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
 call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+"synchronize current tab / path
+map <leader>r :NERDTreeFind<cr> 
 "=====================
 
 "=======================
@@ -209,6 +212,16 @@ set diffopt+=vertical
 
 
 
+"============================
+"LustyJuggler Configuration
+"============================
+let g:LustyJugglerShowKeys = 1 "show number next to buffers
+let g:LustyJugglerKeyboardLayout = "azerty" "shorcuts fit now azerty keyboard
+"===============================
+
+
+
+
 
 "=========================
 "Package installation
@@ -218,11 +231,11 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-"Plugin 'ggreer/the_silver_searcher'
-"Plugin 'rking/ag.vim'
+Plugin 'ggreer/the_silver_searcher'
+Plugin 'rking/ag.vim'
 
 " Plugin ack
-Plugin 'mileszs/ack.vim'
+"Plugin 'mileszs/ack.vim'
 
 "=============================
 "Plugin navigation
@@ -233,6 +246,8 @@ Plugin 'SrcExpl' "Plugin reference, function, variable defintions
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
+"Plugin 'minibufexpl.vim' "elegant buffer manager
+Plugin 'LustyJuggler' "Enhanced buffer manager
 
 "Plugin 'wesleyche/Trinity' "manages NERDTree, Source Explorer and Ctags
 Plugin 'ctrlpvim/ctrlp.vim'
