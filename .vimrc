@@ -16,7 +16,6 @@ set background=dark
 "things.
 ""Author: Gerhard Gappmeier
 "
-
 " set UTF-8 encoding
 set enc=utf-8
 set fenc=utf-8
@@ -55,16 +54,6 @@ set tags+=~/.vim/tags/qt4
 " build tags of your own project with Ctrl-F12
 map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
-"" Pop up menu completion
-set completeopt=menuone,menu,longest,preview
-inoremap <expr> <Tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<Tab>"
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-      \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-      \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-""" highlight popup menu completion
-highlight Pmenu ctermbg=238 gui=bold
 
 "Plugin AutoPairs
 let g:AutoPairsFlyMode = 0 "Activate fly mode
@@ -278,11 +267,11 @@ Plugin 'AutoAlign'
 
 "Plugin 'scrooloose/syntastic' "Plugin Syntastic
 
-Plugin 'snipMate' "complete for loop (for example)
+"Plugin 'snipMate' "complete for loop (for example)
 
 Plugin 'taglist.vim'
 
-"Plugin 'SuperTab'
+Plugin 'SuperTab'
 
 
 """""""""""Yank issues
