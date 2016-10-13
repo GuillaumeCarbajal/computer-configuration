@@ -204,8 +204,8 @@ set diffopt+=vertical
 "============================
 "LustyJuggler Configuration
 "============================
-let g:LustyJugglerShowKeys = 1 "show number next to buffers
-let g:LustyJugglerKeyboardLayout = "azerty" "shorcuts fit now azerty keyboard
+"let g:LustyJugglerShowKeys = 1 "show number next to buffers
+"let g:LustyJugglerKeyboardLayout = "azerty" "shorcuts fit now azerty keyboard
 "===============================
 
 
@@ -236,7 +236,7 @@ Plugin 'SrcExpl' "Plugin reference, function, variable defintions
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 "Plugin 'minibufexpl.vim' "elegant buffer manager
-Plugin 'LustyJuggler' "Enhanced buffer manager
+"Plugin 'LustyJuggler' "Enhanced buffer manager
 
 "Plugin 'wesleyche/Trinity' "manages NERDTree, Source Explorer and Ctags
 Plugin 'ctrlpvim/ctrlp.vim'
