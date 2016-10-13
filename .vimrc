@@ -2,7 +2,6 @@ set backspace=2
 set hidden " allow buffers to be open in background
 set number " turn line numbers on
 set nocompatible              " be iMproved, required
-let mapleader=","  "leader key is now ',' instead of '\' 
 filetype on
 
 " set the runtime path to include Vundle and initialize
@@ -122,8 +121,8 @@ set completeopt=menu,menuone
 "
 "" Limit popup menu height
 set pumheight=20"
-" "
-
+" 
+  
 "========================
 "Source Explorer Configuration
 "========================
@@ -175,7 +174,7 @@ call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
 call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 "synchronize current tab / path
-map <leader>r :NERDTreeFind<cr> 
+autocmd BufEnter * if &ft !~ '^nerdtree$' | silent! lcd %:p:h | endif
 "=====================
 
 "=======================
@@ -255,10 +254,13 @@ Plugin 'morhetz/gruvbox'
 Plugin 'justinmk/vim-syntax-extra'
 
 
+
 """""""""""Completion
 Plugin 'justmao945/vim-clang'
-Plugin 'AutoComplPop'
 "Plugin 'OmniCppComplete'
+Plugin 'AutoComplPop'
+"Plugin 'SuperTab'
+"Plugin 'Shougo/neocomplete.vim'
 "Plugin 'Valloric/YouCompleteMe'
 
 Plugin 'jiangmiao/auto-pairs' "Plugin Automatic Pairs (e.g. brackets)
@@ -271,7 +273,6 @@ Plugin 'AutoAlign'
 
 Plugin 'taglist.vim'
 
-Plugin 'SuperTab'
 
 
 """""""""""Yank issues
