@@ -1,5 +1,5 @@
 set backspace=2
-set hidden " allow buffers to be open in background
+"set hidden " allow buffers to be open in background
 set number " turn line numbers on
 set nocompatible              " be iMproved, required
 filetype on
@@ -54,8 +54,6 @@ set tags+=~/.vim/tags/qt4
 map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 
-"Plugin AutoPairs
-let g:AutoPairsFlyMode = 0 "Activate fly mode
 
 
 " Install DoxygenToolkit from
@@ -72,7 +70,7 @@ nmap <F2> :w<CR>
 " in insert mode F2 will exit insert, save, enters insert again
 imap <F2> <ESC>:w<CR>i
 " switch between header/source with F4
-map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+map <F4> :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
 " create doxygen comment
 map <F6> :Dox<CR>
 " build using makeprg with <F7>
@@ -102,6 +100,78 @@ endif
 
 "=================================================
 "
+"===========================================
+"Quit buffer without closing window
+"===========================================
+"here is a more exotic version of my original Kwbd script
+""delete the buffer; keep windows; create a scratch buffer if no buffers left
+
+function s:Kwbd(kwbdStage)
+  if(a:kwbdStage == 1)
+    if(!buflisted(winbufnr(0)))
+      bd!
+      return
+    endif
+    let s:kwbdBufNum = bufnr("%")
+    let s:kwbdWinNum = winnr()
+    windo call s:Kwbd(2)
+    execute s:kwbdWinNum . 'wincmd w'
+    let s:buflistedLeft = 0
+    let s:bufFinalJump = 0
+    let l:nBufs = bufnr("$")
+    let l:i = 1
+    while(l:i <= l:nBufs)
+      if(l:i != s:kwbdBufNum)
+        if(buflisted(l:i))
+          let s:buflistedLeft = s:buflistedLeft + 1
+        else
+          if(bufexists(l:i) && !strlen(bufname(l:i)) && !s:bufFinalJump)
+            let s:bufFinalJump = l:i
+          endif
+        endif
+      endif
+      let l:i = l:i + 1
+    endwhile
+    f(!s:buflistedLeft)
+    if(s:bufFinalJump)
+      windo if(buflisted(winbufnr(0))) | execute "b! " . s:bufFinalJump | endif
+  else
+    enew
+    let l:newBuf = bufnr("%")
+    windo if(buflisted(winbufnr(0))) | execute "b! " . l:newBuf | endif
+    endif
+    execute s:kwbdWinNum . 'wincmd w'
+    endif
+    if(buflisted(s:kwbdBufNum) || s:kwbdBufNum == bufnr("%"))
+      execute "bd! " . s:kwbdBufNum
+    endif
+    if(!s:buflistedLeft)
+      set buflisted
+      set bufhidden=delete
+      set buftype=
+      setlocal noswapfile
+    endif
+    else
+      if(bufnr("%") == s:kwbdBufNum)
+        let prevbufvar = bufnr("#")
+        if(prevbufvar > 0 && buflisted(prevbufvar) && prevbufvar != s:kwbdBufNum)
+          b #
+        else
+          bn
+        endif
+      endif
+    endif
+    endfunction
+    command! Kwbd call s:Kwbd(1)
+    nnoremap <silent> <Plug>Kwbd :<C-u>Kwbd<CR>
+"=================================================================================
+
+"============================
+"AutoPairs Configuration
+"============================
+"let g:AutoPairsFlyMode = 0 "Activate fly mode
+let g:AutoPairsUseInsertedCount = 1 "gentle AutoPairs
+"=============================
 "
 "========================
 "AutoComplPop Configuration
@@ -151,7 +221,6 @@ let g:NERDTreeWinSize=22 "Change size of window
 let g:NERDTreeWinPos = "left" "Open NERDTree on left
 let g:nerdtree_tabs_open_on_console_startup=1
 autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif "Open NERDTree automatically"
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif "close Vim when only window left is NERDTree"
 
 "NERDTrees File highlighting
@@ -173,6 +242,7 @@ call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
 call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
 call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+
 "synchronize current tab / path
 autocmd BufEnter * if &ft !~ '^nerdtree$' | silent! lcd %:p:h | endif
 "=====================
@@ -182,14 +252,17 @@ autocmd BufEnter * if &ft !~ '^nerdtree$' | silent! lcd %:p:h | endif
 "=======================
 let Tlist_Use_Right_Window   = 1
 let Tlist_WinWidth = 22 "Change size of window
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Tlist | endif "Open Source Explorer automatically"
+let Tlist_Show_One_File = 1
+"let Tlist_Process_File_Always = 0
+"let Tlist_File_Fold_Auto_Close = 1
+let Tlist_Exit_OnlyWindow = 1
+let Tlist_Display_Tag_Scope = 1
+let Tlist_Auto_Open = 1
+let Tlist_Auto_Update = 1
+let Tlist_Compact_Format = 1
 "=======================
 
 
-"==========================
-"Trinity Configuration
-"==========================
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | TrinityToggleAll | endif "Open Trinity automatically"
 
 "==========================
 "Vim.fugitive Configuration
@@ -201,10 +274,11 @@ set diffopt+=vertical
 
 
 "============================
-"LustyJuggler Configuration
+"MiniBufExplorer Configuration
 "============================
-"let g:LustyJugglerShowKeys = 1 "show number next to buffers
-"let g:LustyJugglerKeyboardLayout = "azerty" "shorcuts fit now azerty keyboard
+"map <C-PageDown> :bn<cr>
+"map <C-PageUp> :bp<cr>
+"map gd :bd<cr>
 "===============================
 
 
@@ -241,6 +315,8 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'ctrlpvim/ctrlp.vim'
 
 Plugin 'kshenoy/vim-signature' "highlight marks
+
+"Plugin 'mbadran/headlights' "need to compile vim with python 2.6++
 
 "================================
 "Syntax
@@ -286,11 +362,14 @@ Plugin 'terryma/vim-multiple-cursors'
 "=======================
 "Programming specifics
 "======================
+"""""""Conque: execute file from Vim
+Plugin 'Conque-Shell'
+
 """"""Debugging 
 "Plugin 'lekv/vim-clewn'
 "Plugin 'vimgdb'
 
-Plugin 'Conque-GDB'
+"Plugin 'Conque-GDB'
 """"""
 
 """""""Git
