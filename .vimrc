@@ -43,22 +43,10 @@ set nocp
 filetype plugin on
 "set omnifunc=syntaxcomplete#Complete
 
-" This offers intelligent C++ completion when typing ‘.’ ‘->’ or <C-o>
-" Load standard tag files
-set tags+=~/.vim/tags/cpp
-set tags+=~/.vim/tags/gl
-set tags+=~/.vim/tags/sdl
-set tags+=~/.vim/tags/qt4
-
-" build tags of your own project with Ctrl-F12
-map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 
 
 
-" Install DoxygenToolkit from
-"http://www.vim.org/scripts/script.php?script_id=987
-let g:DoxygenToolkit_authorName="John Doe <john@doe.com>"
 
 "=====================================
 " Enhanced keyboard mappings
@@ -100,71 +88,6 @@ endif
 
 "=================================================
 "
-"===========================================
-"Quit buffer without closing window
-"===========================================
-"here is a more exotic version of my original Kwbd script
-""delete the buffer; keep windows; create a scratch buffer if no buffers left
-
-function s:Kwbd(kwbdStage)
-  if(a:kwbdStage == 1)
-    if(!buflisted(winbufnr(0)))
-      bd!
-      return
-    endif
-    let s:kwbdBufNum = bufnr("%")
-    let s:kwbdWinNum = winnr()
-    windo call s:Kwbd(2)
-    execute s:kwbdWinNum . 'wincmd w'
-    let s:buflistedLeft = 0
-    let s:bufFinalJump = 0
-    let l:nBufs = bufnr("$")
-    let l:i = 1
-    while(l:i <= l:nBufs)
-      if(l:i != s:kwbdBufNum)
-        if(buflisted(l:i))
-          let s:buflistedLeft = s:buflistedLeft + 1
-        else
-          if(bufexists(l:i) && !strlen(bufname(l:i)) && !s:bufFinalJump)
-            let s:bufFinalJump = l:i
-          endif
-        endif
-      endif
-      let l:i = l:i + 1
-    endwhile
-    f(!s:buflistedLeft)
-    if(s:bufFinalJump)
-      windo if(buflisted(winbufnr(0))) | execute "b! " . s:bufFinalJump | endif
-  else
-    enew
-    let l:newBuf = bufnr("%")
-    windo if(buflisted(winbufnr(0))) | execute "b! " . l:newBuf | endif
-    endif
-    execute s:kwbdWinNum . 'wincmd w'
-    endif
-    if(buflisted(s:kwbdBufNum) || s:kwbdBufNum == bufnr("%"))
-      execute "bd! " . s:kwbdBufNum
-    endif
-    if(!s:buflistedLeft)
-      set buflisted
-      set bufhidden=delete
-      set buftype=
-      setlocal noswapfile
-    endif
-    else
-      if(bufnr("%") == s:kwbdBufNum)
-        let prevbufvar = bufnr("#")
-        if(prevbufvar > 0 && buflisted(prevbufvar) && prevbufvar != s:kwbdBufNum)
-          b #
-        else
-          bn
-        endif
-      endif
-    endif
-    endfunction
-    command! Kwbd call s:Kwbd(1)
-    nnoremap <silent> <Plug>Kwbd :<C-u>Kwbd<CR>
-"=================================================================================
 
 "============================
 "AutoPairs Configuration
@@ -173,45 +96,7 @@ function s:Kwbd(kwbdStage)
 let g:AutoPairsUseInsertedCount = 1 "gentle AutoPairs
 "=============================
 "
-"========================
-"AutoComplPop Configuration
-"=======================
-let g:AutoComplPop_Behavior = {'c': [ {'command' : "\<C-x>\<C-o>", 'pattern' : ".",'repeat' : 0}]}
-let g:AutoComplPop_CompleteoptPreview = 1 "pop up menu with parameters
-set conceallevel=2
-set concealcursor=vin
-let g:clang_snippets=1
-let g:clang_conceal_snippets=1
-" The single one that works with clang_complete
-let g:clang_snippets_engine='clang_complete'
-"
-" " Complete options (disable preview scratch window, longest removed to aways
-" " show menu)
-set completeopt=menu,menuone
-"
-"" Limit popup menu height
-set pumheight=20"
-" 
   
-"========================
-"Source Explorer Configuration
-"========================
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | SrcExpl | endif "Open Source Explorer automatically"
-let g:SrcExpl_winHeight = 10
-
-
-"set "Enter" key to jump into the exact definition context 
-let g:SrcExpl_jumpKey = "<ENTER>" 
-
-" // Set "Space" key for back from the definition context 
-let g:SrcExpl_gobackKey = "<SPACE>" 
-"
-" // Enable/Disable the local definition searching, and note that this is not 
-" " // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
-" " // It only searches for a match with the keyword according to command 'gd' 
-let g:SrcExpl_searchLocalDef = 1
-
-
 
 "=========================
 "NERD tree Configuration
@@ -281,9 +166,29 @@ set diffopt+=vertical
 "map gd :bd<cr>
 "===============================
 
+"===========================
+"clang-complete configuration
+"==========================
+" path to directory where library can be found
+let g:clang_library_path='/usr/lib/llvm-3.8/lib'
 
-
-
+set conceallevel=2
+set concealcursor=vin
+let g:clang_snippets=1
+let g:clang_conceal_snippets=1
+" The single one that works with clang_complete
+let g:clang_snippets_engine='clang_complete'
+"
+" " Complete options (disable preview scratch window, longest removed to aways
+" " show menu)
+set completeopt="=menu,menuone
+"
+" " Limit popup menu height
+set pumheight=20
+"
+"" SuperTab completion fall-back 
+let g:SuperTabDefaultCompletionType='<c-x><c-u><c-p>'"
+" "
 
 "=========================
 "Package installation
@@ -302,9 +207,7 @@ Plugin 'rking/ag.vim'
 "=============================
 "Plugin navigation
 "=============================
-Plugin 'FuzzyFinder'
 Plugin 'L9' "Required for FuzzyFinder
-Plugin 'SrcExpl' "Plugin reference, function, variable defintions
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
@@ -332,12 +235,13 @@ Plugin 'justinmk/vim-syntax-extra'
 
 
 """""""""""Completion
-Plugin 'justmao945/vim-clang'
 "Plugin 'OmniCppComplete'
-Plugin 'AutoComplPop'
-"Plugin 'SuperTab'
+"Plugin 'AutoComplPop'
 "Plugin 'Shougo/neocomplete.vim'
 "Plugin 'Valloric/YouCompleteMe'
+"Plugin 'rdnetto/YCM-Generator' "generate automatically .ycm_extra_conf.py
+"Plugin 'justmao945/vim-clang'
+Plugin 'Rip-Rip/clang_complete'
 
 Plugin 'jiangmiao/auto-pairs' "Plugin Automatic Pairs (e.g. brackets)
 
@@ -346,8 +250,12 @@ Plugin 'AutoAlign'
 "Plugin 'scrooloose/syntastic' "Plugin Syntastic
 
 "Plugin 'snipMate' "complete for loop (for example)
+Plugin 'sirver/ultisnips'
 
-Plugin 'taglist.vim'
+Plugin 'SuperTab'
+
+"Plugin 'taglist.vim'
+
 
 
 
@@ -363,7 +271,7 @@ Plugin 'terryma/vim-multiple-cursors'
 "Programming specifics
 "======================
 """""""Conque: execute file from Vim
-Plugin 'Conque-Shell'
+"Plugin 'Conque-Shell'
 
 """"""Debugging 
 "Plugin 'lekv/vim-clewn'
@@ -378,7 +286,7 @@ Plugin 'tpope/vim-fugitive'
 
 
 "Don't remember what that does
-Plugin 'DoxygenToolkit.vim'
+"Plugin 'DoxygenToolkit.vim'
 
 
 "All of your Plugins must be added before the following line
